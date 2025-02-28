@@ -1,6 +1,6 @@
 type ChdBtn = {
   btnText: String;
-  onClick?: () => void;
+  onClick: () => void;
 };
 function ChoosedBtn({ btnText, onClick }: ChdBtn) {
   return (

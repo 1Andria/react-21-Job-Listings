@@ -24,7 +24,7 @@ function Container() {
         <Header />
         {type.length > 0 && (
           <div className="w-full h-auto  flex justify-center pl-[10px] pr-[10px]">
-            <div className="flex flex-wrap max-w-[1110px] min-h-[71px] pl-[20px] pb-[15px] pt-[15px] w-full h-auto items-center z-100 mt-[-30px] rounded-[5px]  bg-white gap-[8px]  ">
+            <div className="flex flex-wrap drop-shadow-xl max-w-[1110px] min-h-[71px] pl-[20px] pb-[15px] pt-[15px] w-full h-auto items-center z-100 mt-[-30px] rounded-[5px]  bg-white gap-[8px]  ">
               {type.map((choosed, key) => (
                 <ChoosedBtn
                   key={key}
@@ -35,8 +35,18 @@ function Container() {
             </div>
           </div>
         )}
-        <div className="flex gap-[30px] max-sm:gap-[40px]  flex-col mt-[80px] pl-[10px] pr-[10px]">
-          {Data.map((Information, key) => (
+        <div className="flex gap-[30px] max-sm:gap-[40px]  flex-col mt-[50px] pl-[10px] pr-[10px]">
+          {Data.filter(
+            (Information) =>
+              type.length === 0 ||
+              type.every(
+                (t) =>
+                  Information.role === t ||
+                  Information.level === t ||
+                  Information.languages.includes(t) ||
+                  (Information.tools && Information.tools.includes(t))
+              )
+          ).map((Information, key) => (
             <EachJob setType={setType} key={key} Information={Information} />
           ))}
         </div>

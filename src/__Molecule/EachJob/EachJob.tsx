@@ -31,7 +31,11 @@ function EachJob({ Information, setType }: JobsProps) {
   }
   return (
     <>
-      <div className="rounded-[5px] max-w-[1110px] max-td:flex-col  max-td:h-auto max-td:max-w-[500px] max-td:gap-[20px] max-td:p-[20px] pl-[20px] max-sm:items-start pr-[20px] justify-between w-full h-[152px] bg-white ml-auto mr-auto flex items-center">
+      <div
+        className={`rounded-[5px] drop-shadow-xl max-w-[1110px] max-td:flex-col  max-td:h-auto max-td:max-w-[500px] max-td:gap-[20px] max-td:p-[20px] pl-[20px] max-sm:items-start pr-[20px] justify-between w-full h-[152px] bg-white ml-auto mr-auto border-l-[5px]  flex items-center ${
+          Information.featured ? "border-l-[#5CA5A5]" : "border-l-white"
+        } `}
+      >
         <div className=" max-sm:flex-col flex gap-[30px] relative">
           <img
             src={Information.logo}

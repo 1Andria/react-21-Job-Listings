@@ -2,6 +2,7 @@ import Button from "../../__Atom/Button/Button";
 
 type JobsProps = {
   Information: object & JobInfo;
+  setType: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 type JobInfo = {
@@ -15,14 +16,22 @@ type JobInfo = {
   postedAt: string;
   contract: string;
   location: string;
-  languages: Array<String>;
-  tools: Array<String>;
+  languages: string[];
+  tools: string[];
 };
 
-function EachJob({ Information }: JobsProps) {
+function EachJob({ Information, setType }: JobsProps) {
+  function Change(value: string) {
+    setType((prev) => {
+      if (!prev.includes(value)) {
+        return [...prev, value];
+      }
+      return prev;
+    });
+  }
   return (
     <>
-      <div className="max-w-[1110px] max-td:flex-col  max-td:h-auto max-td:max-w-[500px] max-td:gap-[20px] max-td:p-[20px] pl-[20px] max-sm:items-start pr-[20px] justify-between w-full h-[152px] bg-white ml-auto mr-auto flex items-center">
+      <div className="rounded-[5px] max-w-[1110px] max-td:flex-col  max-td:h-auto max-td:max-w-[500px] max-td:gap-[20px] max-td:p-[20px] pl-[20px] max-sm:items-start pr-[20px] justify-between w-full h-[152px] bg-white ml-auto mr-auto flex items-center">
         <div className=" max-sm:flex-col flex gap-[30px] relative">
           <img
             src={Information.logo}
@@ -65,14 +74,20 @@ function EachJob({ Information }: JobsProps) {
         </div>
         <div className="h-[1px] w-full min-td:hidden bg-[#B7C4C4]"></div>
         <div className="flex gap-[20px] max-td:flex-wrap">
-          <Button btnText={Information.role} />
-          <Button btnText={Information.level} />
+          <Button
+            onClick={() => Change(Information.role)}
+            btnText={Information.role}
+          />
+          <Button
+            onClick={() => Change(Information.level)}
+            btnText={Information.level}
+          />
           {Information.languages.map((skill, key) => (
-            <Button key={key} btnText={skill} />
+            <Button onClick={() => Change(skill)} key={key} btnText={skill} />
           ))}
           {Information.tools &&
             Information.tools.map((tools, key) => (
-              <Button btnText={tools} key={key} />
+              <Button onClick={() => Change(tools)} btnText={tools} key={key} />
             ))}
         </div>
       </div>
